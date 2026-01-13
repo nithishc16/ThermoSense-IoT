@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrowdOracle | Enterprise Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#050505',
+                        surface: '#0A0A0A',
+                        border: 'rgba(255, 255, 255, 0.08)',
+                        primary: '#3B82F6',
+                        success: '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-background text-white font-sans antialiased selection:bg-primary/30 selection:text-white overflow-hidden">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 border-b border-border bg-background/80 backdrop-blur-lg h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+            <div class="w-6 h-6 bg-white/10 rounded-sm flex items-center justify-center border border-white/10">
+                <div class="w-2 h-2 bg-white rounded-full"></div>
+            </div>
+            <span class="text-sm font-medium tracking-[0.2em] uppercase text-white">CrowdOracle</span>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
+                <div class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </div>
+                <span class="text-xs font-medium text-emerald-500 tracking-wide uppercase" id="connectionStatusText">Operational</span>
+            </div>
+            <button id="settingsBtn" class="text-zinc-400 hover:text-white transition-colors">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="pt-20 pb-6 px-6 h-screen grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Panel: Camera Feed (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col gap-4 h-full">
+            <!-- Video Container -->
+            <div class="relative flex-1 bg-surface/50 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 overflow-hidden group">
+                
+                <!-- Video Element -->
+                <video id="webcam" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" autoplay playsinline muted></video>
+                <canvas id="canvas" class="absolute inset-0 w-full h-full object-cover pointer-events-none"></canvas>
+                
+                <!-- Standby Overlay -->
+                <div id="videoOverlay" class="absolute inset-0 flex flex-col items-center justify-center bg-[#030303] z-10 transition-all duration-500">
+                    <div class="mb-6 p-4 rounded-full bg-white/5 border border-white/5">
+                        <i class="fas fa-video-slash text-zinc-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-light text-white tracking-wide mb-2">System Standby</h3>
+                    <p class="text-zinc-500 text-sm font-light mb-8">Camera feed is currently inactive</p>
+                    
+                    <button id="startCameraBtn" class="group relative px-6 py-2.5 rounded-full bg-gradient-to-b from-zinc-700 to-zinc-800 border border-white/10 shadow-lg hover:shadow-primary/20 transition-all duration-300">
+                        <div class="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <span class="relative flex items-center gap-2 text-sm font-medium text-white">
+                            <i class="fas fa-power-off text-xs"></i> Initialize Feed
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Active UI Elements (Hidden by default) -->
+                <div id="activeUi" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300">
+                    <!-- Top Left Badge -->
+                    <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded text-xs font-medium text-white">
+                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                        LIVE FEED
+                    </div>
+
+                    <!-- Bottom Controls -->
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto">
+                        <button id="toggleCameraBtn" class="w-10 h-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 transition-all" title="Toggle Camera">
+                            <i class="fas fa-video"></i>
+                        </button>
+                        <button id="toggleDetectionBtn" class="w-10 h-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 transition-all" title="Toggle AI">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button id="screenshotBtn" class="w-10 h-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 transition-all" title="Capture">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Data Dashboard (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-4 h-full overflow-y-auto pr-1 custom-scrollbar">
+            
+            <!-- Capacity Card -->
+            <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h2 class="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-1">Occupancy</h2>
+                        <div class="flex items-baseline gap-1">
+                            <span id="currentCount" class="text-4xl font-semibold text-white">0</span>
+                            <span class="text-sm text-zinc-500">/ <span id="maxCapacityDisplay">60</span></span>
+                        </div>
+                    </div>
+                    <div id="capacityStatusBadge" class="px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-medium uppercase tracking-wide">
+                        Optimal
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="relative h-1 w-full bg-white/5 rounded-full overflow-hidden mb-4">
+                    <div id="capacityProgressBar" class="absolute top-0 left-0 h-full bg-primary transition-all duration-700 ease-out w-0 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                </div>
+
+                <div class="flex justify-between text-xs text-zinc-500 font-mono">
+                    <span>0%</span>
+                    <span id="occupancyPercent">0%</span>
+                    <span>100%</span>
+                </div>
+                
+                <!-- Hidden input for logic -->
+                <input type="number" id="roomCapacity" value="60" class="hidden">
+            </div>
+
+            <!-- Temperature Card -->
+            <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xs font-medium text-zinc-400 uppercase tracking-wider">Environment</h2>
+                    <i class="fas fa-temperature-half text-zinc-600 text-xs"></i>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-baseline gap-1">
+                        <span id="temperatureValue" class="text-3xl font-semibold text-white">25.0</span>
+                        <span class="text-lg text-zinc-500">°C</span>
+                    </div>
+                    
+                    <!-- Digital Input Simulation -->
+                    <div class="flex items-center gap-2 bg-black/40 rounded border border-white/5 p-1">
+                        <button id="tempDown" class="w-6 h-6 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/5 rounded transition-colors">
+                            <i class="fas fa-minus text-[10px]"></i>
+                        </button>
+                        <input type="number" id="manualTemp" value="25.0" step="0.1" class="w-12 bg-transparent text-center text-sm text-white focus:outline-none font-mono appearance-none m-0">
+                        <button id="tempUp" class="w-6 h-6 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/5 rounded transition-colors">
+                            <i class="fas fa-plus text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Statistics Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-database text-zinc-600 text-xs"></i>
+                        <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">Records</span>
+                    </div>
+                    <span id="totalRecords" class="text-xl font-semibold text-white">0</span>
+                </div>
+                <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-bolt text-zinc-600 text-xs"></i>
+                        <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">FPS</span>
+                    </div>
+                    <span id="detectionFps" class="text-xl font-semibold text-white">--</span>
+                </div>
+                <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-clock text-zinc-600 text-xs"></i>
+                        <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">Interval</span>
+                    </div>
+                    <span id="updateInterval" class="text-xl font-semibold text-white">5s</span>
+                </div>
+                <div class="bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-wifi text-zinc-600 text-xs"></i>
+                        <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">Latency</span>
+                    </div>
+                    <span class="text-xl font-semibold text-white">12<span class="text-xs text-zinc-500 ml-1">ms</span></span>
+                </div>
+            </div>
+
+            <!-- Activity Stream -->
+            <div class="flex-1 bg-neutral-900/30 backdrop-blur-md border border-border rounded-lg ring-1 ring-white/5 p-6 flex flex-col min-h-[200px]">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xs font-medium text-zinc-400 uppercase tracking-wider">System Log</h2>
+                    <button id="clearActivityBtn" class="text-[10px] text-zinc-600 hover:text-zinc-400 uppercase tracking-wide">Clear</button>
+                </div>
+                <div id="activityList" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2">
+                    <div class="text-center py-8">
+                        <span class="text-xs text-zinc-700">No recent activity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-[#0A0A0A] border border-border rounded-lg shadow-2xl w-full max-w-md transform scale-95 transition-transform duration-300 p-0 overflow-hidden">
+            <div class="px-6 py-4 border-b border-border flex justify-between items-center bg-white/5">
+                <h3 class="text-sm font-medium text-white uppercase tracking-wider">Configuration</h3>
+                <button id="closeSettingsBtn" class="text-zinc-500 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6 space-y-6">
+                <div class="space-y-2">
+                    <label class="text-xs text-zinc-400 uppercase tracking-wide">Backend Endpoint</label>
+                    <input type="text" id="backendUrl" class="w-full bg-black border border-border rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none transition-colors" value="http://localhost:8080">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-xs text-zinc-400 uppercase tracking-wide">Max Capacity</label>
+                        <input type="number" id="modalRoomCapacity" class="w-full bg-black border border-border rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none transition-colors" value="60">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs text-zinc-400 uppercase tracking-wide">Interval (s)</label>
+                        <input type="number" id="updateIntervalInput" class="w-full bg-black border border-border rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none transition-colors" value="5">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-xs text-zinc-400 uppercase tracking-wide">Confidence Threshold</label>
+                        <span id="confidenceValue" class="text-xs text-primary font-mono">0.5</span>
+                    </div>
+                    <input type="range" id="confidenceThreshold" min="0.1" max="0.9" step="0.1" value="0.5" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary">
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Auto-transmit Data</span>
+                        <input type="checkbox" id="autoSendData" checked class="accent-primary w-4 h-4 bg-black border-border rounded">
+                    </label>
+                    <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Show Bounding Boxes</span>
+                        <input type="checkbox" id="showBoundingBoxes" checked class="accent-primary w-4 h-4 bg-black border-border rounded">
+                    </label>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-border bg-white/5 flex justify-end">
+                <button id="saveSettingsBtn" class="px-4 py-2 bg-primary hover:bg-blue-600 text-white text-xs font-medium uppercase tracking-wide rounded transition-colors">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 z-[200] bg-[#050505] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-t-2 border-l-2 border-primary rounded-full animate-spin mb-4"></div>
+        <p id="loadingText" class="text-zinc-400 text-sm font-light tracking-widest uppercase">Initializing Neural Engine...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-[150] flex flex-col gap-2"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
