@@ -1,47 +1,29 @@
-ThermoSense
+<h1 align="center">Hi 👋, I'm ThermoSense</h1>
+<h3 align="center">Smart Thermal-Based Occupancy Detection and Intelligent Ventilation Control System</h3>
 
-ThermoSense is a smart building management system that uses thermal sensors to detect and count people in indoor spaces without using cameras. The system automatically controls ventilation and HVAC operations based on occupancy and environmental conditions to improve energy efficiency while maintaining occupant comfort and privacy.
+- 🔭 I’m currently working on [ThermoSense](https://github.com/nithishc16/ThermoSense-IoT)
 
-Features
-- Thermal-based crowd detection without cameras  
-- Privacy-preserving occupancy counting  
-- Automatic HVAC and ventilation control  
-- Energy-efficient building operation  
-- Works in all lighting conditions  
-- IoT-based architecture  
+- 🌱 I’m currently learning **Spring Boot & Microservices ,Embedded Systems with Arduino ,IoT Communication Protocols (MQTT, HTTP) ,Computer Vision & Edge AI**
 
-System Overview :
-ThermoSense integrates thermal sensors, edge computing, and control logic to monitor occupancy in real time. The detected occupancy data is combined with indoor and outdoor environmental information to make intelligent decisions about ventilation and HVAC usage.
+- 👯 I’m looking to collaborate on [ThermoSense](https://github.com/nithishc16/ThermoSense-IoT)
 
-Technology Stack
-- Sensors: Thermal sensors  
-- Backend: Server-side processing and control logic  
-- Frontend:Web-based user interface  
-- IoT:Device communication and data transmission  
-- Machine Learning:Occupancy estimation from thermal data  
+- 🤝 I’m looking for help with [ThermoSense](https://github.com/nithishc16/ThermoSense-IoT)
 
+- 👨‍💻 All of my projects are available at [https://github.com/nithishc16](https://github.com/nithishc16)
 
- System Requirements
+- 💬 Ask me about **IoT, Java, Spring Boot, Arduino, Smart Building Systems**
 
-1. Software Environment
-- Java: Version 21 or later  
-- Database: PostgreSQL (active and properly configured)  
-- Build Tool: Apache Maven (optional; Maven Wrapper `mvnw` supported)  
-- Firmware Development: Arduino IDE  
-- Operating System: Windows, Linux, or macOS  
+- 📫 How to reach me **nithishc67@gmail.com**
 
- 2. Hardware Components
-- Microcontroller:Arduino Uno or Arduino Nano  
-- Environmental Sensor:DHT11 Temperature and Humidity Sensor  
-- Display Module:16x2 LCD with I2C Interface  
-- Actuation:DC Motor with L298N Motor Driver  
-- Vision Input:USB Webcam  
+- 📄 Know about my experiences [www.linkedin.com/in/nithishc16](www.linkedin.com/in/nithishc16)
 
-3. Connectivity & Interfaces
-- USB interface for microcontroller programming  
-- Stable power supply for sensors and motor driver  
+- ⚡ Fun fact **I enjoy turning real-world problems into smart automation solutions 😄**
 
-4. Development Tools
-- Web browser (for frontend access and monitoring)  
-- Serial Monitor (Arduino IDE) for debugging  
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://linkedin.com/in/www.linkedin.com/in/nithishc16" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="www.linkedin.com/in/nithishc16" height="30" width="40" /></a>
+</p>
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://www.tensorflow.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/> </a> </p>
 
