@@ -49,7 +49,6 @@ Ensure PostgreSQL is running, then execute:
 CREATE DATABASE CrowdOracle;
 ```
 
-
 2. Backend Configuration
 Navigate to Backend/src/main/resources/application.properties.
 Update your database credentials:
@@ -57,41 +56,41 @@ Update your database credentials:
 spring.datasource.username=your_postgres_username
 spring.datasource.password=your_postgres_password
 ```
-Critical: Set the correct Serial Port for your Arduino (check Device Manager on Windows or /dev/tty* on Linux/Mac):
-```
-serial.port.name=COM3  # Change to your actual port (e.g., COM4, /dev/ttyUSB0)
-serial.enabled=true
-```
 
 Critical: Set the correct Serial Port for your Arduino (check Device Manager on Windows or /dev/tty* on Linux/Mac):
 ```
 serial.port.name=COM3  # Change to your actual port (e.g., COM4, /dev/ttyUSB0)
 serial.enabled=true
 ```
+
 3. IoT Hardware Setup
-Circuit Connection:
-DHT11 Signal: Pin 7
-Motor Enable (PWM): Pin 9
-Motor IN1: Pin 10
-Motor IN2: Pin 11
-LCD: I2C Pins (SDA/SCL)
-Open Iot/AurdinoConfig.ino in Arduino IDE.
-Install required libraries (DHT sensor library, Adafruit Unified Sensor, LiquidCrystal I2C).
-Upload the code to your Arduino.
-Keep the Arduino connected via USB to the computer running the Backend.
+Circuit Connection:<br>
+DHT11 Signal: Pin 7<br>
+Motor Enable (PWM): Pin 9<br>
+Motor IN1: Pin 10<br>
+Motor IN2: Pin 11<br>
+LCD: I2C Pins (SDA/SCL)<br>
+Open Iot/AurdinoConfig.ino in Arduino IDE.<br>
+Install required libraries (DHT sensor library, Adafruit Unified Sensor, LiquidCrystal I2C).<br>
+Upload the code to your Arduino.<br>
+Keep the Arduino connected via USB to the computer running the Backend.<br>
+
+
 4. Running the Application
 Start the Backend:
 ```
 cd Backend
 ./mvnw spring-boot:run
 ```
+
 Wait for the log: "Serial port listener started" & "Started CrowdOracleApplication".
 
-Launch the Dashboard:
 
-Simply open ```frontend/index.html``` in a modern web browser.
-Allow Camera permissions when prompted.
-Click "Initialize Feed" to start AI detection.
+Launch the Dashboard:<br>
+
+Simply open ```frontend/index.html``` in a modern web browser.<br>
+Allow Camera permissions when prompted.<br>
+Click "Initialize Feed" to start AI detection.<br>
 
 
 
