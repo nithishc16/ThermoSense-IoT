@@ -10,7 +10,7 @@ Features
 - Works in all lighting conditions  
 - IoT-based architecture  
 
-System Overview
+System Overview :
 ThermoSense integrates thermal sensors, edge computing, and control logic to monitor occupancy in real time. The detected occupancy data is combined with indoor and outdoor environmental information to make intelligent decisions about ventilation and HVAC usage.
 
 Technology Stack
@@ -20,13 +20,6 @@ Technology Stack
 - IoT:Device communication and data transmission  
 - Machine Learning:Occupancy estimation from thermal data  
 
-📂 Project Structure
-ThermoSense/
-│── backend/ # Server-side logic and processing
-│── frontend/ # User interface files
-│── iot/ # IoT device and sensor code
-│── docs/ # Documentation and diagrams
-│── README.md
 
  System Requirements
 
