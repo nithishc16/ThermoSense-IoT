@@ -47,6 +47,7 @@ Ensure PostgreSQL is running, then execute:
 
 ```sql
 CREATE DATABASE CrowdOracle;
+```
 
 
 2. Backend Configuration
