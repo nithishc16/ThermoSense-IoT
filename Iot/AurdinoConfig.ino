@@ -1,7 +1,7 @@
 #include <Adafruit_Sensor.h> // // This library is already available in the Arduino IDE
 #include <DHT.h> // This library is already available in the Arduino IDE
+#include <DHT_U.h>// This library is already available in the Arduino IDE
 
-#include <DHT_U.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
