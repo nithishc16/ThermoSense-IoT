@@ -1,4 +1,4 @@
-#include <Adafruit_Sensor.h>
+#include <Adafruit_Sensor.h> // // This library is already available in the Arduino IDE
 #include <DHT.h>
 #include <DHT_U.h>
 #include <Wire.h>
